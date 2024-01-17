@@ -1,0 +1,142 @@
+/* Mobile first */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  font-family: "", "Arial", sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+img {
+  display: block;
+  height: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* Sticky footer */
+.site-main {
+  flex-grow: 1;
+}
+
+
+.nav-link {
+  border-left: 2px solid transparent !important;
+}
+
+.nav-link:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.link-active {
+  border-left: 2px solid #0d6efd !important;
+  transition: border ease 0.3s;
+  transform-origin: top;
+  background-color: #0d6efd;
+  color: #fff !important;
+}
+
+.my-display {
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+
+.my-display-layout {
+  grid-column-start: 2;
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.my-modal {
+  position: relative;
+  min-width: 30%;
+  min-height: 30%;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.closeBtn {
+  top: 10px;
+  right: 10px;
+}
+
+.textarea {
+  height: 120px;
+}
+
+.my_posts-list {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px 55px;
+  padding-left: 0;
+}
+
+.my__posts-wrapper {
+  padding-right: 25px;
+  overflow-y: scroll;
+  height: 459px;
+}
+
+
+.my__posts-wrapper::-webkit-scrollbar {
+  width: 7px;
+}
+
+
+.my__posts-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 7px;
+}
+
+.my__posts-wrapper::-webkit-scrollbar-thumb {
+  background: #adabab;
+  border-radius: 7px;
+  transition: background-color 0.3s ease-in;
+}
+
+.my__posts-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #939393;
+}
+
+.btn__item {
+  top: -15px;
+  right: -15px;
+}
