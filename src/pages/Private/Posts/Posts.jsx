@@ -15,6 +15,14 @@ export const Posts = () => {
 			});
 	}, []);
 
+	axios("http://localhost:8080/posts?_page=1")
+		.then((res) => {
+			console.log(res);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+
 	return (
 		<div className="px-5 pt-5">
 			<h1 className="">Posts</h1>

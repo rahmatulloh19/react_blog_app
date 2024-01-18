@@ -42,14 +42,20 @@ export const UserPosts = ({ me }) => {
 		document.body.removeAttribute("style");
 	}
 
-	function handleEditSubmit(evt) {
+	async function handleEditSubmit(evt) {
 		evt.preventDefault();
+
+		const created_at = await axios("http://localhost:8080/posts/" + id).then(({ data }) => {
+			return data.created_at;
+		});
+
 		axios
 			.put("http://localhost:8080/posts/" + id, {
 				post_title: titleEdit.current.value.trim(),
 				post_body: bodyEdit.current.value.trim(),
 				user_id: me.id,
-				created_at: getTime(),
+				created_at: created_at,
+				last_edited_at: getTime(),
 			})
 			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
