@@ -63,11 +63,15 @@ export const Posts = () => {
 		<div className="px-5 pt-5">
 			<h1 className="">Posts</h1>
 
+			{/* in this moment handling loading moment */}
 			{moment.isLoading && <Loading />}
+			{/* in this moment handling error moment */}
 			{moment.isError && <h2>error</h2>}
+			{/* in this moment no error but users there aren't */}
 			{moment.isLoading === false && moment.isError === false && posts.length === 0 ? (
 				<h2>Users not found</h2>
 			) : (
+				//  in this moment rerendering isError moment don't handle then our component is not rendering
 				!moment.isError && (
 					<>
 						<ul className="mt-5 d-grid my_posts-list">
