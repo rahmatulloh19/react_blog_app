@@ -14,10 +14,6 @@ export const Item = ({
 	setEditPost,
 }) => {
 	const [user, setUser] = useState({});
-	// setEditPost({
-	// 	post_title: "",
-	// 	post_body: "",
-	// });
 
 	user_id &&
 		useEffect(() => {
@@ -30,7 +26,6 @@ export const Item = ({
 				.catch((err) => {
 					console.log(err);
 				});
-			return;
 		}, []);
 
 	return (

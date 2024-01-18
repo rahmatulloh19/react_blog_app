@@ -1,27 +1,42 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Item } from "../../../components/Item";
+import ReactPaginate from "react-paginate";
 
 export const Posts = () => {
 	const [posts, setPosts] = useState([]);
+	const [pageCount, setPageCount] = useState(0);
 
-	useEffect(() => {
-		axios("http://localhost:8080/posts")
+	const handlePageClick = ({ selected }) => {
+		axios(`http://localhost:8080/posts?_page=${selected + 1}`)
 			.then((res) => {
-				setPosts(res.data.reverse());
+				const reversedData = res.data.reverse();
+				setPosts(reversedData);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	};
 
-	axios("http://localhost:8080/posts?_page=1")
-		.then((res) => {
-			console.log(res);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	useEffect(() => {
+		axios("http://localhost:8080/posts")
+			.then((res) => {
+				setPageCount(Math.ceil(res.data.length / 10));
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+
+		!pageCount &&
+			axios("http://localhost:8080/posts?_page=1")
+				.then((res) => {
+					const reversedData = res.data.reverse();
+					setPosts(reversedData);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+	}, []);
 
 	return (
 		<div className="px-5 pt-5">
@@ -40,6 +55,27 @@ export const Posts = () => {
 					);
 				})}
 			</ul>
+
+			<ReactPaginate
+				nextLabel="next >"
+				onPageChange={handlePageClick}
+				pageRangeDisplayed={3}
+				marginPagesDisplayed={2}
+				pageCount={pageCount}
+				previousLabel="< previous"
+				pageClassName="page-item"
+				pageLinkClassName="page-link"
+				previousClassName="page-item"
+				previousLinkClassName="page-link"
+				nextClassName="page-item"
+				nextLinkClassName="page-link"
+				breakLabel="..."
+				breakClassName="page-item"
+				breakLinkClassName="page-link"
+				containerClassName="pagination justify-content-center"
+				activeClassName="active"
+				renderOnZeroPageCount={null}
+			/>
 		</div>
 	);
 };
