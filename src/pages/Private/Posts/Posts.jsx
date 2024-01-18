@@ -9,12 +9,13 @@ export const Posts = () => {
 		isLoading: true,
 		isError: false,
 	});
+	const [error, setError] = useState("Error");
 
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(0);
 
 	const handlePageClick = ({ selected }) => {
-		axios(`http://localhoaaast:8080/posts?_page=${selected + 1}`)
+		axios(`http://localhost:8080/posts?_page=${selected + 1}`)
 			.then((res) => {
 				const reversedData = res.data.reverse();
 				setPosts(reversedData);
@@ -25,6 +26,7 @@ export const Posts = () => {
 				});
 			})
 			.catch((err) => {
+				setError(err.message);
 				setMoment({
 					isLoading: false,
 					isError: true,
@@ -52,6 +54,7 @@ export const Posts = () => {
 					});
 				})
 				.catch((err) => {
+					setError(err.message);
 					setMoment({
 						isLoading: false,
 						isError: true,
@@ -66,7 +69,7 @@ export const Posts = () => {
 			{/* in this moment handling loading moment */}
 			{moment.isLoading && <Loading />}
 			{/* in this moment handling error moment */}
-			{moment.isError && <h2>error</h2>}
+			{moment.isError && <h2>{error}</h2>}
 			{/* in this moment no error but users there aren't */}
 			{moment.isLoading === false && moment.isError === false && posts.length === 0 ? (
 				<h2>Users not found</h2>
