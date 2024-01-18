@@ -1,266 +1,29 @@
 {
   "users": [
     {
-      "email": "ada@adad",
-      "password": "$2a$10$eaqMH14NfJ6ih8H0E21A3eC0s0jAg.JVCGkvL20zse6HmjQsvYR8K",
-      "first_name": "adad",
-      "last_name": "adad",
+      "email": "raxmonov@gmail.com",
+      "password": "$2a$10$9mHbjIoycH9/FsfbBahybuADGRmxC2d0emTd787EUvtQ9TgKptgBS",
+      "first_name": "Rahmatulloh",
+      "last_name": "Raxmonov",
+      "img": "https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg",
       "id": 1
     },
     {
-      "email": "qwerty@aaa",
-      "password": "$2a$10$fbZY6Sj1eB255LRw/Bnbjuxa9wsmxsNvMNx3UvnpVwGwvhN6ij4R6",
-      "first_name": "asd",
-      "last_name": "asd",
+      "email": "xurmatbek@gmail.com",
+      "password": "$2a$10$e4bjXtsu9fcHKbf2XnVuzux2pT1uyWSAcmzmHg960Dp1t3xHSWmua",
+      "first_name": "Xurmatbek",
+      "last_name": "Olloyorov",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY6vjXrihfo1H_aym3QWDwHpz3X4PlHYqC6Q&usqp=CAU",
       "id": 2
-    },
-    {
-      "email": "qwery@aaa",
-      "password": "$2a$10$MEyNnCCtMKnB7wFBDOtQw.e86dkQ32Ifta6lMSs6wVHhdxv34JSnO",
-      "first_name": "asd",
-      "last_name": "asd",
-      "id": 3
-    },
-    {
-      "email": "daaadadadad@aaa",
-      "password": "$2a$10$Nh6PBg4sBDS0EnWBM2yot.vpaH.Pgg8GNotOaUBj9/7m8XykfJ//S",
-      "first_name": "asd",
-      "last_name": "asadadad",
-      "id": 4
-    },
-    {
-      "first_name": "Rahmatulloh",
-      "last_name": "Raxmonov",
-      "email": "raxmonov@gmail.com",
-      "password": "$2a$10$PslpJpEjGZ0FanUbLtfDk.EuUgHkfmWNaXjCLwqFh4Xbv7PvsQ8AC",
-      "id": 5
-    },
-    {
-      "email": "murod@gmail.com",
-      "password": "$2a$10$mLi65hS253CUgwkcaGHMZe31aPQOvpwC4NIZeFBZrSII9/YQoEpl2",
-      "first_name": "Murod",
-      "last_name": "Shernazarov",
-      "id": 6
-    },
-    {
-      "email": "aaa@amam",
-      "password": "$2a$10$mtwd30NdxlvAKyE4FFPG9.ffMORiBe5ZSGRA9WnwIvUf3Fp0C4cru",
-      "first_name": "adad",
-      "last_name": "adad",
-      "id": 7
-    },
-    {
-      "email": "qweq@faam",
-      "password": "$2a$10$y0/CgyOg4kV4Vfl15/rw3OY4LwMhmCeU1vOJVYKTLVKN1cbGKCjeK",
-      "first_name": "temp",
-      "last_name": "daadad",
-      "id": 8
     }
   ],
   "posts": [
     {
-      "post_title": "Murod",
-      "post_body": "dkadwadkadkadwkadkd k ak ka kamkdma mmam mkdmkadmkam mkakm akmam",
-      "user_id": 6,
-      "created_at": "20:44 17.01.2024",
-      "id": 5
-    },
-    {
-      "post_title": "adhbadbabd ahbadb had",
-      "post_body": "hsebjadbad abdjabdjabdjadhad",
-      "user_id": 6,
-      "created_at": "20:47 17.01.2024",
-      "id": 6
-    },
-    {
-      "post_title": "adad",
-      "post_body": "adadadada adada",
-      "user_id": 5,
-      "created_at": "04:20 18.01.2024",
-      "last_edited_at": "06:41 18.01.2024",
-      "id": 8
-    },
-    {
-      "post_title": "Rahmatulloh",
-      "post_body": "da ad am kmad akk admkam amda dma makdmamd amd akm dam amd kamdk amdkamdkam akmd kamd ak",
-      "user_id": 9,
-      "created_at": "06:01 18.01.2024",
-      "id": 9
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
-      "user_id": 5,
-      "created_at": "06:12 18.01.2024",
-      "id": 10
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "adadada da da dada d",
-      "user_id": 5,
-      "created_at": "06:13 18.01.2024",
-      "id": 11
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ad adad a ada",
-      "user_id": 5,
-      "last_edited_at": "06:33 18.01.2024",
-      "id": 12
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
-      "user_id": 5,
-      "created_at": "06:20 18.01.2024",
-      "id": 13
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
-      "user_id": 5,
-      "created_at": "06:20 18.01.2024",
-      "id": 14
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
-      "user_id": 5,
-      "created_at": "06:20 18.01.2024",
-      "id": 15
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
-      "user_id": 5,
-      "created_at": "06:23 18.01.2024",
-      "id": 16
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
-      "user_id": 5,
-      "created_at": "06:25 18.01.2024",
-      "id": 17
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
-      "user_id": 5,
-      "created_at": "06:25 18.01.2024",
-      "id": 18
-    },
-    {
-      "post_title": "Hello world",
-      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
-      "user_id": 5,
-      "created_at": "06:25 18.01.2024",
-      "id": 19
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:26 18.01.2024",
-      "id": 20
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:26 18.01.2024",
-      "id": 21
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:26 18.01.2024",
-      "id": 22
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:26 18.01.2024",
-      "id": 23
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 24
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 25
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 26
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 27
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 28
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 29
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 30
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 31
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 32
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 33
-    },
-    {
-      "post_title": "aaaaa",
-      "post_body": "hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world Rahmatulloh2",
-      "user_id": 5,
-      "created_at": "06:28 18.01.2024",
-      "id": 34
+      "post_title": "Rahmatulloh ning birinchi posti",
+      "post_body": "jijad jajdi ajdi jadij ai jaidjai jdaij diajdiajdiaji jdad jaidjaidj aijdaij iajdaijd iajdia jdia jdiajd ijai jaj diajdi ajdijaidjaidjaidad",
+      "user_id": 1,
+      "created_at": "18:35 18.01.2024",
+      "id": 1
     }
   ]
 }

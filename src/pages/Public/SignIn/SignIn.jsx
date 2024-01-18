@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import image from "../../../assets/50-736x681.jpg";
 
 export const SignIn = ({ setMe, setToken }) => {
 	const userEmail = useRef(null);
@@ -18,18 +21,41 @@ export const SignIn = ({ setMe, setToken }) => {
 				if (res.status === 200) {
 					setToken(res.data.accessToken);
 					setMe(res.data.user);
-					console.log(res.data);
 
 					localStorage.setItem("token", res.data.accessToken);
 					localStorage.setItem("me", JSON.stringify(res.data.user));
+					toast.success("Successfully created account", {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+						transition: Bounce,
+					});
 				}
+			})
+			.catch((err) => {
+				toast.error(err.message, {
+					position: "top-center",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					transition: Bounce,
+				});
 			});
 	};
 
 	return (
 		<>
 			<div className="d-flex align-items-center overflow-hidden">
-				<img className="w-50" src={"https://picsum.photos/id/50/736/681"} alt="" />
+				<img className="w-50" src={image} alt="" />
 				<div
 					className="flex-grow-1 d-flex flex-column align-items-center h-100"
 					style={{ paddingTop: "150px" }}>
@@ -60,6 +86,20 @@ export const SignIn = ({ setMe, setToken }) => {
 					</div>
 				</div>
 			</div>
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				limit={3}
+				hideProgressBar={false}
+				newestOnTop
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+				transition:Bounce
+			/>
 		</>
 	);
 };

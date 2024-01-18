@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Item } from "../../../components/Item";
 import ReactPaginate from "react-paginate";
 import { Loading } from "../../../components/Loading";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Posts = () => {
 	const [moment, setMoment] = useState({
@@ -31,6 +33,17 @@ export const Posts = () => {
 					isLoading: false,
 					isError: true,
 				});
+				toast.error("Cannot get data", {
+					position: "top-center",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					transition: Bounce,
+				});
 			});
 	};
 
@@ -40,7 +53,17 @@ export const Posts = () => {
 				setPageCount(Math.ceil(res.data.length / 10));
 			})
 			.catch((err) => {
-				console.log(err);
+				toast.error("Cannot get data", {
+					position: "top-center",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					transition: Bounce,
+				});
 			});
 
 		!pageCount &&
@@ -54,6 +77,17 @@ export const Posts = () => {
 					});
 				})
 				.catch((err) => {
+					toast.error("Cannot get data", {
+						position: "top-center",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+						transition: Bounce,
+					});
 					setError(err.message);
 					setMoment({
 						isLoading: false,
@@ -72,10 +106,11 @@ export const Posts = () => {
 			{moment.isError && <h2>{error}</h2>}
 			{/* in this moment no error but users there aren't */}
 			{moment.isLoading === false && moment.isError === false && posts.length === 0 ? (
-				<h2>Users not found</h2>
+				<h2>Posts not found</h2>
 			) : (
 				//  in this moment rerendering isError moment don't handle then our component is not rendering
-				!moment.isError && (
+				!moment.isError &&
+				!moment.isLoading && (
 					<>
 						<ul className="mt-5 d-grid my_posts-list">
 							{posts.map((item) => {
@@ -113,6 +148,20 @@ export const Posts = () => {
 					</>
 				)
 			)}
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				limit={3}
+				hideProgressBar={false}
+				newestOnTop
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+				transition:Bounce
+			/>
 		</div>
 	);
 };

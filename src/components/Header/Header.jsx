@@ -60,6 +60,8 @@ export const Header = ({ setToken, setMe, me }) => {
 										<img
 											className="me-2 rounded-circle"
 											src={me.img}
+											width={25}
+											height={25}
 											alt={me.first_name + " " + me.last_name + "'s image"}
 										/>
 									) : (

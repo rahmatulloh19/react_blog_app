@@ -2,15 +2,26 @@ import { MdOutlineDeleteSweep } from "react-icons/md";
 import { PiNewspaper } from "react-icons/pi";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlinePostAdd } from "react-icons/md";
-import { Modal } from "../../../components/Modal/Modal";
+import { Modal } from "../../../components/Modal";
 import axios from "axios";
 import { Item } from "../../../components/Item";
+import { Loading } from "../../../components/Loading";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const UserPosts = ({ me }) => {
+	const [moment, setMoment] = useState({
+		isLoading: true,
+		isError: false,
+	});
+	const [error, setError] = useState("Error");
+
 	const [modal, setModal] = useState(false);
 	const [editPostModal, setEditPostModal] = useState(false);
+
 	const [myPosts, setMyPosts] = useState([]);
 	const [id, setId] = useState(undefined);
+
 	const [editPost, setEditPost] = useState({
 		post_title: "",
 		post_body: "",
@@ -36,8 +47,36 @@ export const UserPosts = ({ me }) => {
 				user_id: me.id,
 				created_at: getTime(),
 			})
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+			.then((res) => {
+				if (res.status === 201) {
+					setEditPostModal(false);
+					toast.success("Successfully Added", {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+						transition: Bounce,
+					});
+				}
+			})
+			.catch((err) => {
+				setEditPostModal(false);
+				toast.error(err.message, {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					transition: Bounce,
+				});
+			});
 		setModal(false);
 		document.body.removeAttribute("style");
 	}
@@ -57,9 +96,36 @@ export const UserPosts = ({ me }) => {
 				created_at: created_at,
 				last_edited_at: getTime(),
 			})
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
-		setEditPostModal(false);
+			.then((res) => {
+				if (res.status === 200) {
+					setEditPostModal(false);
+					toast.success("Successfully Edited", {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+						transition: Bounce,
+					});
+				}
+			})
+			.catch((err) => {
+				setEditPostModal(false);
+				toast.error(err.message, {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					transition: Bounce,
+				});
+			});
 		document.body.removeAttribute("style");
 	}
 
@@ -67,21 +133,56 @@ export const UserPosts = ({ me }) => {
 		id &&
 			axios
 				.delete("http://localhost:8080/posts/" + id, {})
-				.then((res) => console.log(res))
+				.then((res) => {
+					if (res.status === 200) {
+						setEditPostModal(false);
+						toast.success("Successfully Deleted", {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+							theme: "light",
+							transition: Bounce,
+						});
+					}
+				})
 				.catch((err) => {
-					console.log(err);
+					setEditPostModal(false);
+					toast.error(err.message, {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+						transition: Bounce,
+					});
 				});
 		setEditPostModal(false);
 	}
 
 	useEffect(() => {
 		axios("http://localhost:8080/posts?user_id=" + me.id)
-			.then(({ data }) =>
-				setTimeout(() => {
-					setMyPosts(data);
-				}, 500)
-			)
-			.catch((err) => console.log(err));
+			.then(({ data }) => {
+				setMyPosts(data);
+				setMoment({
+					isLoading: false,
+					isError: false,
+				});
+			})
+			.catch((err) => {
+				setError(err.message);
+				setMoment({
+					isLoading: false,
+					isError: true,
+				});
+			});
+
 		setEditPost({
 			post_title: "",
 			post_body: "",
@@ -89,12 +190,20 @@ export const UserPosts = ({ me }) => {
 
 		return () => {
 			axios("http://localhost:8080/posts?user_id=" + me.id)
-				.then(({ data }) =>
-					setTimeout(() => {
-						setMyPosts(data);
-					}, 500)
-				)
-				.catch((err) => console.log(err));
+				.then(({ data }) => {
+					setMyPosts(data);
+					setMoment({
+						isLoading: false,
+						isError: false,
+					});
+				})
+				.catch((err) => {
+					setError(err.message);
+					setMoment({
+						isLoading: false,
+						isError: true,
+					});
+				});
 		};
 	}, [modal, editPostModal]);
 
@@ -109,25 +218,34 @@ export const UserPosts = ({ me }) => {
 				Add post
 			</button>
 
-			<div className="my__posts-wrapper mt-5">
-				<ul className="d-grid my_posts-list mt-3">
-					{myPosts.map((item) => {
-						return (
-							<Item
-								key={item.id}
-								id={item.id}
-								title={item.post_title}
-								body={item.post_body}
-								created_at={item.created_at}
-								canEdit={true}
-								setEditPostModal={setEditPostModal}
-								setId={setId}
-								setEditPost={setEditPost}
-							/>
-						);
-					})}
-				</ul>
-			</div>
+			{moment.isLoading && <Loading />}
+			{moment.isError && <h2>{error}</h2>}
+			{moment.isLoading === false && moment.isError === false && myPosts.length === 0 ? (
+				<h2>Posts not found</h2>
+			) : (
+				!moment.isError && (
+					<div className="my__posts-wrapper mt-5">
+						<ul className="d-grid my_posts-list mt-3">
+							{myPosts.map((item) => {
+								return (
+									<Item
+										key={item.id}
+										id={item.id}
+										title={item.post_title}
+										body={item.post_body}
+										created_at={item.created_at}
+										canEdit={true}
+										setEditPostModal={setEditPostModal}
+										setId={setId}
+										setEditPost={setEditPost}
+									/>
+								);
+							})}
+						</ul>
+					</div>
+				)
+			)}
+			{}
 
 			{modal && (
 				<Modal title="Create new post" closeModal={setModal}>
@@ -191,6 +309,20 @@ export const UserPosts = ({ me }) => {
 					</form>
 				</Modal>
 			)}
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				limit={3}
+				hideProgressBar={false}
+				newestOnTop
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+				transition:Bounce
+			/>
 		</div>
 	);
 };
