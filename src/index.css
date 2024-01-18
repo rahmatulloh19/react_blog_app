@@ -69,7 +69,6 @@ img {
   grid-column-start: 2;
 }
 
-
 .overlay {
   position: absolute;
   top: 0;
@@ -112,7 +111,7 @@ img {
 .my__posts-wrapper {
   padding-right: 25px;
   overflow-y: scroll;
-  height: 459px;
+  height: 395px;
 }
 
 

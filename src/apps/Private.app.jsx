@@ -11,7 +11,10 @@ export const PrivateApp = ({ setToken, setMe, me }) => {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/posts" element={<Posts />} />
-					<Route path="/user_settings" element={<Settings />} />
+					<Route
+						path="/user_settings"
+						element={<Settings me={me} setMe={setMe} setToken={setToken} />}
+					/>
 					<Route path="/user_posts" element={<UserPosts me={me} />} />
 				</Routes>
 			</div>

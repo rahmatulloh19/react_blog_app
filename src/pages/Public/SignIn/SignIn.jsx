@@ -50,7 +50,7 @@ export const SignIn = ({ setMe, setToken }) => {
 								ref={userPassword}
 							/>
 
-							<button className="btn btn-primary mb-1 w-25 ms-auto px-4" type="submit">
+							<button className="btn btn-primary mb-1 w-25 ms-auto " type="submit">
 								Enter
 							</button>
 							<Link className="d-block ms-auto w-25 text-center text-success" to="/sign_up">

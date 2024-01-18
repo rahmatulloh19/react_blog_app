@@ -29,10 +29,10 @@
       "id": 4
     },
     {
-      "email": "rahmatulloh@gmail.com",
-      "password": "$2a$10$d3OhTDaGjaW9K2AYNZwuUOzxy5pnh4ZpTNTXHbq3sifMwMW5z3tw.",
       "first_name": "Rahmatulloh",
       "last_name": "Raxmonov",
+      "email": "raxmonov@gmail.com",
+      "password": "$2a$10$PslpJpEjGZ0FanUbLtfDk.EuUgHkfmWNaXjCLwqFh4Xbv7PvsQ8AC",
       "id": 5
     },
     {
@@ -85,6 +85,34 @@
       "user_id": 5,
       "created_at": "04:20 18.01.2024",
       "id": 8
+    },
+    {
+      "post_title": "Rahmatulloh",
+      "post_body": "da ad am kmad akk admkam amda dma makdmamd amd akm dam amd kamdk amdkamdkam akmd kamd ak",
+      "user_id": 9,
+      "created_at": "06:01 18.01.2024",
+      "id": 9
+    },
+    {
+      "post_title": "Hello world",
+      "post_body": "ama mmam mm amakmk akkm akmmk akk am amkma k akm am amk ammmka k akkm makm",
+      "user_id": 5,
+      "created_at": "06:12 18.01.2024",
+      "id": 10
+    },
+    {
+      "post_title": "Hello world",
+      "post_body": "adadada da da dada d",
+      "user_id": 5,
+      "created_at": "06:13 18.01.2024",
+      "id": 11
+    },
+    {
+      "post_title": "Hello world",
+      "post_body": "ad adad a ada",
+      "user_id": 5,
+      "created_at": "06:13 18.01.2024",
+      "id": 12
     }
   ]
 }
