@@ -13,15 +13,17 @@ export const Item = ({
 	created_at,
 	setEditPost,
 }) => {
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState("");
 
 	user_id &&
 		useEffect(() => {
-			axios("http://localhost:8080/users/" + user_id).then((res) => {
-				if (res.status === 200) {
-					setUser(res.data);
-				}
-			});
+			axios("http://localhost:8080/users/" + user_id)
+				.then((res) => {
+					if (res.status === 200) {
+						setUser(res.data);
+					}
+				})
+				.catch(() => {});
 		}, []);
 
 	return (
@@ -29,8 +31,14 @@ export const Item = ({
 			<li
 				type="button"
 				className="d-flex flex-column border rounded p-3 bg-light position-relative">
+				{user.first_name && (
+					<div className="d-flex align-items-center gap-2 mb-3">
+						<img className="rounded-circle" src={user.img} width={30} alt="" />
+						<p className="text-end fw-bold mb-0">{user.first_name + " " + user.last_name}</p>
+					</div>
+				)}
 				<h3 className="fs-4">{title}</h3>
-				<p className="">{body}</p>
+				<p className="flex-grow-1">{body}</p>
 				{canEdit && (
 					<button
 						className="btn__item btn btn-warning position-absolute"
@@ -43,9 +51,7 @@ export const Item = ({
 						<FiEdit data-id={id} />
 					</button>
 				)}
-				{user.first_name && (
-					<p className="text-end fw-bold mt-auto">{user.first_name + " " + user.last_name}</p>
-				)}
+
 				<p className="text-end fst-italic mb-0">{created_at}</p>
 			</li>
 		)

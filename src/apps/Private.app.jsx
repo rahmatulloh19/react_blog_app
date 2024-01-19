@@ -7,7 +7,7 @@ export const PrivateApp = ({ setToken, setMe, me }) => {
 	return (
 		<div className="my-display h-100">
 			<Header setToken={setToken} setMe={setMe} me={me} />
-			<div className="my-display-layout">
+			<div className="my-display-layout d-flex flex-column">
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/posts" element={<Posts />} />

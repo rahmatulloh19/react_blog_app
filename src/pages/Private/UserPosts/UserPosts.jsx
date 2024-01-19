@@ -6,8 +6,20 @@ import { Modal } from "../../../components/Modal";
 import axios from "axios";
 import { Item } from "../../../components/Item";
 import { Loading } from "../../../components/Loading";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+const toastSettings = {
+	position: "top-right",
+	autoClose: 5000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	pauseOnHover: true,
+	draggable: true,
+	progress: undefined,
+	theme: "light",
+	transition: Bounce,
+};
 
 export const UserPosts = ({ me }) => {
 	const [moment, setMoment] = useState({
@@ -50,32 +62,12 @@ export const UserPosts = ({ me }) => {
 			.then((res) => {
 				if (res.status === 201) {
 					setEditPostModal(false);
-					toast.success("Successfully Added", {
-						position: "top-right",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-						transition: Bounce,
-					});
+					toast.success("Successfully Added", toastSettings);
 				}
 			})
 			.catch((err) => {
 				setEditPostModal(false);
-				toast.error(err.message, {
-					position: "top-right",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-					transition: Bounce,
-				});
+				toast.error(err.message, toastSettings);
 			});
 		setModal(false);
 		document.body.removeAttribute("style");
@@ -99,32 +91,12 @@ export const UserPosts = ({ me }) => {
 			.then((res) => {
 				if (res.status === 200) {
 					setEditPostModal(false);
-					toast.success("Successfully Edited", {
-						position: "top-right",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-						transition: Bounce,
-					});
+					toast.success("Successfully Edited", toastSettings);
 				}
 			})
 			.catch((err) => {
 				setEditPostModal(false);
-				toast.error(err.message, {
-					position: "top-right",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-					transition: Bounce,
-				});
+				toast.error(err.message, toastSettings);
 			});
 		document.body.removeAttribute("style");
 	}
@@ -136,32 +108,12 @@ export const UserPosts = ({ me }) => {
 				.then((res) => {
 					if (res.status === 200) {
 						setEditPostModal(false);
-						toast.success("Successfully Deleted", {
-							position: "top-right",
-							autoClose: 5000,
-							hideProgressBar: false,
-							closeOnClick: true,
-							pauseOnHover: true,
-							draggable: true,
-							progress: undefined,
-							theme: "light",
-							transition: Bounce,
-						});
+						toast.success("Successfully Deleted", toastSettings);
 					}
 				})
 				.catch((err) => {
 					setEditPostModal(false);
-					toast.error(err.message, {
-						position: "top-right",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-						transition: Bounce,
-					});
+					toast.error(err.message, toastSettings);
 				});
 		setEditPostModal(false);
 	}
@@ -183,6 +135,7 @@ export const UserPosts = ({ me }) => {
 				});
 			});
 
+		// on opened modal staying prevues value
 		setEditPost({
 			post_title: "",
 			post_body: "",
@@ -207,6 +160,8 @@ export const UserPosts = ({ me }) => {
 		};
 	}, [modal, editPostModal]);
 
+	console.log();
+
 	return (
 		<div className="p-5">
 			<h1 className="fs-2 mb-4">In this page you can add your posts</h1>
@@ -225,7 +180,7 @@ export const UserPosts = ({ me }) => {
 			) : (
 				!moment.isError && (
 					<div className="my__posts-wrapper mt-5">
-						<ul className="d-grid my_posts-list">
+						<ul className="d-grid my_posts-list pt-3">
 							{myPosts.map((item) => {
 								return (
 									<Item
@@ -238,6 +193,7 @@ export const UserPosts = ({ me }) => {
 										setEditPostModal={setEditPostModal}
 										setId={setId}
 										setEditPost={setEditPost}
+										user_id={me?.id}
 									/>
 								);
 							})}
@@ -256,11 +212,13 @@ export const UserPosts = ({ me }) => {
 							placeholder="Enter new post name"
 							aria-label="Enter new post name"
 							ref={title}
+							required
 						/>
 						<textarea
 							className="form-control mb-3 textarea"
 							placeholder="Enter new post body"
-							ref={body}></textarea>
+							ref={body}
+							required></textarea>
 						<div className="btnWrapper d-flex justify-content-end">
 							<button
 								form="addPost"
@@ -283,13 +241,15 @@ export const UserPosts = ({ me }) => {
 							aria-label="Enter a new name"
 							ref={titleEdit}
 							defaultValue={editPost.post_title && editPost.post_title}
+							required
 						/>
 						<textarea
 							className="form-control mb-3 textarea"
 							placeholder="Enter a new body"
 							aria-label="Enter a new body"
 							ref={bodyEdit}
-							defaultValue={editPost.post_body && editPost.post_body}></textarea>
+							defaultValue={editPost.post_body && editPost.post_body}
+							required></textarea>
 						<div className="btnWrapper d-flex justify-content-end">
 							<button
 								className="btn btn-outline-danger me-2 d-flex align-items-center gap-2"

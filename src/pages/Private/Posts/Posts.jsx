@@ -97,7 +97,7 @@ export const Posts = () => {
 	}, []);
 
 	return (
-		<div className="px-5 pt-5">
+		<div className="px-5 pt-5 d-flex flex-column flex-grow-1">
 			<h1 className="">Posts</h1>
 
 			{/* in this moment handling loading moment */}
@@ -112,7 +112,7 @@ export const Posts = () => {
 				!moment.isError &&
 				!moment.isLoading && (
 					<>
-						<ul className="mt-5 d-grid my_posts-list">
+						<ul className="mt-5 d-grid my_posts-list flex-grow-1 align-items-start">
 							{posts.map((item) => {
 								return (
 									<Item
