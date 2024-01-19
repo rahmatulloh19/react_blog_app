@@ -211,7 +211,7 @@ export const UserPosts = ({ me }) => {
 		<div className="p-5">
 			<h1 className="fs-2 mb-4">In this page you can add your posts</h1>
 			<button
-				className="btn btn-success d-flex align-items-center gap-2"
+				className="btn btn-success d-flex align-items-center gap-2 mb-3"
 				type="button"
 				onClick={() => setModal(true)}>
 				<MdOutlinePostAdd />
@@ -225,7 +225,7 @@ export const UserPosts = ({ me }) => {
 			) : (
 				!moment.isError && (
 					<div className="my__posts-wrapper mt-5">
-						<ul className="d-grid my_posts-list mt-3">
+						<ul className="d-grid my_posts-list">
 							{myPosts.map((item) => {
 								return (
 									<Item
