@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 export const Item = ({
 	title,
@@ -33,7 +34,11 @@ export const Item = ({
 				className="d-flex flex-column border rounded p-3 bg-light position-relative">
 				{user.first_name && (
 					<div className="d-flex align-items-center gap-2 mb-3">
-						<img className="rounded-circle" src={user.img} width={30} alt="" />
+						{user.img ? (
+							<img className="rounded-circle" src={user.img} width={30} alt="User img" />
+						) : (
+							<FaRegCircleUser className="me-2" style={{ width: "25px", height: "25px" }} />
+						)}
 						<p className="text-end fw-bold mb-0">{user.first_name + " " + user.last_name}</p>
 					</div>
 				)}

@@ -13,12 +13,6 @@ export const Header = ({ setToken, setMe, me }) => {
 					Blog App
 				</Link>
 
-				<input
-					className="form-control my-3"
-					type="search"
-					placeholder="Search posts..."
-					aria-label="Search posts..."
-				/>
 				<nav className="navbar flex-grow-1 fw-medium navbar-expand-lg navbar-light p-0">
 					<div className="collapse navbar-collapse h-100" id="navbarSupportedContent">
 						<ul className="navbar-nav mb-2 mb-lg-0 flex-column pt-3 h-100 w-100 gap-2 fs-5">

@@ -25,7 +25,7 @@ export const Home = () => {
 					interest.
 				</h1>
 			</div>
-			<h2 className="fs-4 text-end my-5 text-success fw-bolder">And you can see some posts</h2>
+			<h2 className="fs-4 text-end my-5 text-success fw-bolder">There you can see last 5 posts</h2>
 
 			<ul className="list-group">
 				{lastPosts &&
