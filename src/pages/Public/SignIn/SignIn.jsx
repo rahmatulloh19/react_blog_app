@@ -82,7 +82,7 @@ export const SignIn = ({ setMe, setToken }) => {
 		console.log("hello");
 		if (!emailError.length && !passwordError.length) {
 			setStatusForm(true);
-		}
+		} else [setStatusForm(false)];
 	}, [emailError, passwordError]);
 
 	return (
@@ -130,9 +130,7 @@ export const SignIn = ({ setMe, setToken }) => {
 							</label>
 
 							<button
-								className={`btn btn-primary mb-1 w-25 ms-auto ${
-									statusForm === false ? "disabled" : ""
-								}`}
+								className={`btn btn-primary mb-1 w-25 ms-auto ${!statusForm ? "disabled" : ""}`}
 								type="submit">
 								Enter
 							</button>
