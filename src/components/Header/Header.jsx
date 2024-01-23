@@ -8,6 +8,7 @@ import { meContext } from "../../context/meContext";
 
 export const Header = () => {
 	const { me, setMe } = useContext(meContext);
+	console.log(me);
 	const { setToken } = useContext(tokenContext);
 
 	const navigate = useNavigate();

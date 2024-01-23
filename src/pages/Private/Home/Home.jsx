@@ -11,9 +11,7 @@ export const Home = () => {
 				// for rendering last posts
 				setLastPosts(res.data.reverse().slice(0, 5));
 			})
-			.catch((err) => {
-				console.log(err);
-			});
+			.catch((err) => {});
 	}, []);
 
 	return (
