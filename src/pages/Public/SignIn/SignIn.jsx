@@ -7,9 +7,11 @@ import image from "../../../assets/50-736x681.jpg";
 import { tokenContext } from "../../../context/tokenContext";
 import { meContext } from "../../../context/meContext";
 import { lang } from "../../../lang";
+import { langContext } from "../../../context/langContext";
 
 export const SignIn = () => {
-	const [langValue, setLangValue] = useState("en");
+	const { langValue, setLangValue } = useContext(langContext);
+	console.log(langValue);
 
 	const { setToken } = useContext(tokenContext);
 	const { setMe } = useContext(meContext);
@@ -88,6 +90,7 @@ export const SignIn = () => {
 
 	const handleChangeSelect = (evt) => {
 		setLangValue(evt.target.value);
+		localStorage.setItem("lang", evt.target.value);
 	};
 
 	useEffect(() => {
@@ -103,7 +106,8 @@ export const SignIn = () => {
 				<select
 					className="position-absolute form-select"
 					style={{ right: "15px", top: "15px", width: "90px" }}
-					onChange={handleChangeSelect}>
+					onChange={handleChangeSelect}
+					defaultValue={localStorage.getItem("lang") || "en"}>
 					<option value="en">en</option>
 					<option value="uz">uz</option>
 					<option value="ru">ru</option>
