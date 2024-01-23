@@ -31,6 +31,14 @@
       "last_name": "Olloyorov",
       "img": "",
       "id": 4
+    },
+    {
+      "email": "oyat2005@gmail.com",
+      "password": "$2a$10$zM5cVfHvhnDspSaUx0hWZOQkwOlRPt6U2Mg.b1CJ0QXMNdmStqH5u",
+      "first_name": "Oyatulloh",
+      "last_name": "G'ofurov",
+      "img": "",
+      "id": 5
     }
   ],
   "posts": [

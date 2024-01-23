@@ -141,7 +141,7 @@ export const SignIn = () => {
 										passwordTouched && passwordError && "is-invalid"
 									} ${!passwordError && "is-valid"}`}
 									type="password"
-									placeholder={t("signIn.emailHolder")}
+									placeholder={t("signIn.passwordHolder")}
 									ref={userPassword}
 									required
 									onBlur={() => setPasswordTouched(true)}

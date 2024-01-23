@@ -7,8 +7,11 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { meContext } from "../../../context/meContext";
 import { tokenContext } from "../../../context/tokenContext";
+import { useTranslation } from "react-i18next";
 
 export const Settings = () => {
+	const { t } = useTranslation();
+
 	const { me, setMe } = useContext(meContext);
 	const { setToken } = useContext(tokenContext);
 
@@ -34,7 +37,6 @@ export const Settings = () => {
 			.then((res) => {
 				if (res.status === 200) {
 					setModal(false);
-					console.log(res);
 					setMe(res.data);
 					localStorage.setItem("me", JSON.stringify(res.data));
 					toast.success("Successfully edited user info", {
@@ -51,7 +53,7 @@ export const Settings = () => {
 				}
 			})
 			.catch((err) => {
-				toast.error(err.message, {
+				toast.error(t("settings.errorStatus"), {
 					position: "top-right",
 					autoClose: 5000,
 					hideProgressBar: false,
@@ -107,59 +109,59 @@ export const Settings = () => {
 					onClick={() => {
 						setModal(true);
 					}}>
-					Edit
+					{t("settings.btnEdit")}
 				</button>
 			</div>
 			{modal && (
-				<Modal closeModal={setModal} title="Edit user info">
+				<Modal closeModal={setModal} title={t("settings.modalTitle")}>
 					<form className="d-flex flex-column" onSubmit={handleSubmit}>
 						<label className="mb-3">
-							User first name:
+							{t("settings.modalFirstName")}
 							<input
 								className="form-control mt-2"
 								type="text"
-								placeholder="Enter new first name"
+								placeholder={t("settings.firstNameHolder")}
 								ref={firstName}
 								defaultValue={me.first_name ? me.first_name : ""}
 							/>
 						</label>
 						<label className="mb-3">
-							User last name:
+							{t("settings.modalLastName")}
 							<input
 								className="form-control mt-2"
 								type="text"
-								placeholder="Enter new last name"
+								placeholder={t("settings.lastNameHolder")}
 								defaultValue={me.last_name ? me.last_name : ""}
 								ref={lastName}
 							/>
 						</label>
 						<label className="mb-3">
-							User email:
+							{t("settings.modalEmail")}
 							<input
 								className="form-control mt-2"
 								type="text"
-								placeholder="Enter new email"
+								placeholder={t("settings.emailHolder")}
 								defaultValue={me.email ? me.email : ""}
 								ref={email}
 								required
 							/>
 						</label>
 						<label className="mb-3">
-							User password:
+							{t("settings.modalPassword")}
 							<input
 								className="form-control mt-2"
 								type="text"
-								placeholder="Enter new password"
+								placeholder={t("settings.passwordHolder")}
 								ref={password}
 								required
 							/>
 						</label>
 						<label className="mb-3">
-							User Image:
+							{t("settings.modalImage")}
 							<input
 								className="form-control mt-2"
 								type="url"
-								placeholder="Enter new image url"
+								placeholder={t("settings.imgHolder")}
 								ref={image}
 							/>
 						</label>
@@ -168,10 +170,10 @@ export const Settings = () => {
 								className="btn btn-outline-danger flex-grow-1"
 								type="button"
 								onClick={handleDelete}>
-								Delete
+								{t("settings.modalDelete")}
 							</button>
 							<button className="btn btn-outline-success flex-grow-1" type="submit">
-								Edit & Save
+								{t("settings.modalSubmit")}
 							</button>
 						</div>
 					</form>
