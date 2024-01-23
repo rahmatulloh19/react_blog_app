@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import { tokenContext } from "./context/tokenContext";
 import { useContext } from "react";
+import "./i18n";
 
 function App() {
 	const { token } = useContext(tokenContext);

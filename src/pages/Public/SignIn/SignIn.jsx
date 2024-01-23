@@ -6,12 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import image from "../../../assets/50-736x681.jpg";
 import { tokenContext } from "../../../context/tokenContext";
 import { meContext } from "../../../context/meContext";
-import { lang } from "../../../lang";
-import { langContext } from "../../../context/langContext";
+import { useTranslation } from "react-i18next";
 
 export const SignIn = () => {
-	const { langValue, setLangValue } = useContext(langContext);
-	console.log(langValue);
+	const { t, i18n } = useTranslation();
 
 	const { setToken } = useContext(tokenContext);
 	const { setMe } = useContext(meContext);
@@ -19,8 +17,8 @@ export const SignIn = () => {
 	const userEmail = useRef(null);
 	const userPassword = useRef(null);
 
-	const [emailError, setEmailError] = useState(lang[langValue].singIn.emailRequired);
-	const [passwordError, setPasswordError] = useState(lang[langValue].singIn.passwordRequired);
+	const [emailError, setEmailError] = useState(t("singIn.emailRequired"));
+	const [passwordError, setPasswordError] = useState(t("singIn.passwordRequired"));
 
 	const [emailTouched, setEmailTouched] = useState(false);
 	const [passwordTouched, setPasswordTouched] = useState(false);
@@ -89,8 +87,8 @@ export const SignIn = () => {
 	};
 
 	const handleChangeSelect = (evt) => {
-		setLangValue(evt.target.value);
 		localStorage.setItem("lang", evt.target.value);
+		i18n.changeLanguage(evt.target.value);
 	};
 
 	useEffect(() => {
@@ -117,7 +115,7 @@ export const SignIn = () => {
 					style={{ paddingTop: "150px" }}>
 					<div className="inner w-50 shadow p-3 py-4">
 						<h1 className="d-block text-center fs-2 text-primary fw-bolder mb-3">
-							{lang[langValue].singIn.title}
+							{t("singIn.title")}
 						</h1>
 
 						<form className="w-100 d-flex flex-column gap-3" onSubmit={handleSubmit}>
@@ -127,7 +125,7 @@ export const SignIn = () => {
 										emailTouched && emailError && "is-invalid"
 									} ${!emailError && "is-valid"}`}
 									type="email"
-									placeholder={lang[langValue].singIn.emailHolder}
+									placeholder={t("singIn.emailHolder")}
 									ref={userEmail}
 									required
 									onBlur={() => setEmailTouched(true)}
@@ -143,7 +141,7 @@ export const SignIn = () => {
 										passwordTouched && passwordError && "is-invalid"
 									} ${!passwordError && "is-valid"}`}
 									type="password"
-									placeholder={lang[langValue].singIn.emailHolder}
+									placeholder={t("singIn.emailHolder")}
 									ref={userPassword}
 									required
 									onBlur={() => setPasswordTouched(true)}
@@ -157,10 +155,10 @@ export const SignIn = () => {
 							<button
 								className={`btn btn-primary mb-1 w-25 ms-auto ${!statusForm ? "disabled" : ""}`}
 								type="submit">
-								{lang[langValue].singIn.btn}
+								{t("singIn.btn")}
 							</button>
 							<Link className="d-block ms-auto text-center text-success" to="/sign_up">
-								{lang[langValue].singIn.goSignUp}
+								{t("singIn.goSignUp")}
 							</Link>
 						</form>
 					</div>
