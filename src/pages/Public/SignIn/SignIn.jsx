@@ -17,8 +17,8 @@ export const SignIn = () => {
 	const userEmail = useRef(null);
 	const userPassword = useRef(null);
 
-	const [emailError, setEmailError] = useState(t("singIn.emailRequired"));
-	const [passwordError, setPasswordError] = useState(t("singIn.passwordRequired"));
+	const [emailError, setEmailError] = useState(t("signIn.emailRequired"));
+	const [passwordError, setPasswordError] = useState(t("signIn.passwordRequired"));
 
 	const [emailTouched, setEmailTouched] = useState(false);
 	const [passwordTouched, setPasswordTouched] = useState(false);
@@ -72,7 +72,7 @@ export const SignIn = () => {
 
 	const handleEmailValue = (evt) => {
 		if (!EMAIL_REG_EX.test(evt.target.value)) {
-			setEmailError("Email is not valid");
+			setEmailError(t("signIn.emailNotValid"));
 		} else {
 			setEmailError("");
 		}
@@ -80,7 +80,7 @@ export const SignIn = () => {
 
 	const handlePasswordValue = (evt) => {
 		if (evt.target.value.length <= 3 || evt.target.value.length > 8) {
-			setPasswordError("Length of password must be 4-8");
+			setPasswordError(t("signIn.passwordNotValid"));
 		} else {
 			setPasswordError("");
 		}
@@ -115,7 +115,7 @@ export const SignIn = () => {
 					style={{ paddingTop: "150px" }}>
 					<div className="inner w-50 shadow p-3 py-4">
 						<h1 className="d-block text-center fs-2 text-primary fw-bolder mb-3">
-							{t("singIn.title")}
+							{t("signIn.title")}
 						</h1>
 
 						<form className="w-100 d-flex flex-column gap-3" onSubmit={handleSubmit}>
@@ -125,14 +125,14 @@ export const SignIn = () => {
 										emailTouched && emailError && "is-invalid"
 									} ${!emailError && "is-valid"}`}
 									type="email"
-									placeholder={t("singIn.emailHolder")}
+									placeholder={t("signIn.emailHolder")}
 									ref={userEmail}
 									required
 									onBlur={() => setEmailTouched(true)}
 									onChange={(evt) => handleEmailValue(evt)}
 								/>
 								<span className={`${emailError ? "invalid-feedback" : "valid-feedback"}`}>
-									{emailError ? emailError : "Looks good!"}
+									{emailError ? emailError : t("signIn.valid")}
 								</span>
 							</label>
 							<label>
@@ -141,24 +141,24 @@ export const SignIn = () => {
 										passwordTouched && passwordError && "is-invalid"
 									} ${!passwordError && "is-valid"}`}
 									type="password"
-									placeholder={t("singIn.emailHolder")}
+									placeholder={t("signIn.emailHolder")}
 									ref={userPassword}
 									required
 									onBlur={() => setPasswordTouched(true)}
 									onChange={(evt) => handlePasswordValue(evt)}
 								/>
 								<span className={`${passwordError ? "invalid-feedback" : "valid-feedback"}`}>
-									{passwordError ? passwordError : "Looks good!"}
+									{passwordError ? passwordError : t("signIn.valid")}
 								</span>
 							</label>
 
 							<button
 								className={`btn btn-primary mb-1 w-25 ms-auto ${!statusForm ? "disabled" : ""}`}
 								type="submit">
-								{t("singIn.btn")}
+								{t("signIn.btn")}
 							</button>
 							<Link className="d-block ms-auto text-center text-success" to="/sign_up">
-								{t("singIn.goSignUp")}
+								{t("signIn.goSignUp")}
 							</Link>
 						</form>
 					</div>
