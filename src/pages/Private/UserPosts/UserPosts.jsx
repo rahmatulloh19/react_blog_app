@@ -1,6 +1,6 @@
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { PiNewspaper } from "react-icons/pi";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { Modal } from "../../../components/Modal";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { Item } from "../../../components/Item";
 import { Loading } from "../../../components/Loading";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { meContext } from "../../../context/meContext";
 
 const toastSettings = {
 	position: "top-right",
@@ -21,7 +22,9 @@ const toastSettings = {
 	transition: Bounce,
 };
 
-export const UserPosts = ({ me }) => {
+export const UserPosts = () => {
+	const { me } = useContext(meContext);
+
 	const [moment, setMoment] = useState({
 		isLoading: true,
 		isError: false,

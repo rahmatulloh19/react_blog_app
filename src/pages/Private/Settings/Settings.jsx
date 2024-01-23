@@ -1,12 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { Modal } from "../../../components/Modal/Modal";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { meContext } from "../../../context/meContext";
+import { tokenContext } from "../../../context/tokenContext";
 
-export const Settings = ({ me, setMe, setToken }) => {
+export const Settings = () => {
+	const { me, setMe } = useContext(meContext);
+	const { setToken } = useContext(tokenContext);
+
 	const [modal, setModal] = useState(false);
 	const navigate = useNavigate();
 

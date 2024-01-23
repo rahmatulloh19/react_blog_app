@@ -1,10 +1,15 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import image from "../../../assets/38-736x681.jpg";
+import { tokenContext } from "../../../context/tokenContext";
+import { meContext } from "../../../context/meContext";
 
-export const SignUp = ({ setMe, setToken }) => {
+export const SignUp = () => {
+	const { setToken } = useContext(tokenContext);
+	const { setMe } = useContext(meContext);
+
 	const userFirstName = useRef(null);
 	const userLastName = useRef(null);
 	const userEmail = useRef(null);

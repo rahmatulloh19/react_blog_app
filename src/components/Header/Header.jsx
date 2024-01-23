@@ -2,8 +2,14 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CiLogout, CiSettings, CiSignpostR1, CiSignpostDuo1 } from "react-icons/ci";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FiHome } from "react-icons/fi";
+import { useContext } from "react";
+import { tokenContext } from "../../context/tokenContext";
+import { meContext } from "../../context/meContext";
 
-export const Header = ({ setToken, setMe, me }) => {
+export const Header = () => {
+	const { me, setMe } = useContext(meContext);
+	const { setToken } = useContext(tokenContext);
+
 	const navigate = useNavigate();
 
 	return (

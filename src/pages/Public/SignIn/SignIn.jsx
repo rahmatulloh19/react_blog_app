@@ -1,11 +1,16 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import image from "../../../assets/50-736x681.jpg";
+import { tokenContext } from "../../../context/tokenContext";
+import { meContext } from "../../../context/meContext";
 
-export const SignIn = ({ setMe, setToken }) => {
+export const SignIn = () => {
+	const { setToken } = useContext(tokenContext);
+	const { setMe } = useContext(meContext);
+
 	const userEmail = useRef(null);
 	const userPassword = useRef(null);
 
@@ -79,7 +84,6 @@ export const SignIn = ({ setMe, setToken }) => {
 	};
 
 	useEffect(() => {
-		console.log("hello");
 		if (!emailError.length && !passwordError.length) {
 			setStatusForm(true);
 		} else [setStatusForm(false)];

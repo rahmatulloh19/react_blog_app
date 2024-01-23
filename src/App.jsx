@@ -1,17 +1,17 @@
-import { useState } from "react";
 import { PrivateApp, PublicApp } from "./apps/";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import { tokenContext } from "./context/tokenContext";
+import { useContext } from "react";
 
 function App() {
-	const [token, setToken] = useState(localStorage.getItem("token") || "");
-	const [me, setMe] = useState(JSON.parse(localStorage.getItem("me")) || {});
+	const { token } = useContext(tokenContext);
 
 	if (!token) {
-		return <PublicApp setToken={setToken} setMe={setMe} />;
+		return <PublicApp />;
 	}
 
-	return <PrivateApp setToken={setToken} setMe={setMe} me={me} />;
+	return <PrivateApp />;
 }
 
 export default App;
