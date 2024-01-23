@@ -6,14 +6,12 @@ import image from "../../../assets/38-736x681.jpg";
 import { tokenContext } from "../../../context/tokenContext";
 import { meContext } from "../../../context/meContext";
 import { useTranslation } from "react-i18next";
-import { langContext } from "../../../context/langContext";
 
 export const SignUp = () => {
 	const { t, i18n } = useTranslation();
 
 	const { setToken } = useContext(tokenContext);
 	const { setMe } = useContext(meContext);
-	const { setLangValue } = useContext(langContext);
 
 	const userFirstName = useRef(null);
 	const userLastName = useRef(null);

@@ -32,6 +32,26 @@ export const lang = {
 			goSignIn: "Sign in",
 			imgFeedBack: "Optional",
 		},
+		header: {
+			title: "Blog App",
+			home: "Home",
+			posts: "Posts",
+			settings: "Settings",
+			myPosts: "My Posts",
+			logOut: "Log out",
+		},
+		homePage: {
+			title:
+				"Discover the latest insights and trends with our cutting-edge blog app, providing a seamless and interactive platform for staying informed and engaged in your areas of interest.",
+			subTitle: "There you can see last 5 posts",
+		},
+		posts: {
+			title: "Posts",
+			statusError: "Something went wrong",
+			subTitle: "Posts not found",
+			symbolPrev: "previous",
+			symbolNext: "next",
+		},
 	},
 	ru: {
 		signIn: {
@@ -66,6 +86,26 @@ export const lang = {
 			goSignIn: "Войдите в систему",
 			imgFeedBack: "Необязательно",
 		},
+		header: {
+			title: "Приложение для блога",
+			home: "Главная",
+			posts: "Сообщений",
+			settings: "Настройки",
+			myPosts: "Мои Посты",
+			logOut: "Выйти из системы",
+		},
+		homePage: {
+			title:
+				"Узнавайте о последних новостях и тенденциях с помощью нашего ультрасовременного приложения для ведения блога, предоставляющего удобную интерактивную платформу для того, чтобы оставаться в курсе событий и быть вовлеченным в интересующие вас области.",
+			subTitle: "Там вы можете увидеть последние 5 сообщений",
+		},
+		posts: {
+			title: "Сообщений",
+			statusError: "Что-то пошло не так",
+			subTitle: "Сообщения не найдены",
+			symbolPrev: "предыдущий",
+			symbolNext: "следующий",
+		},
 	},
 	uz: {
 		signIn: {
@@ -99,6 +139,26 @@ export const lang = {
 			valid: "Yaxshi holatda!",
 			btn: "Hisob yaratish",
 			goSignIn: "Kirish",
+		},
+		header: {
+			title: "Blog ilovasi",
+			home: "Bosh sahifa",
+			posts: "Xabarlar",
+			settings: "Sozlamalar",
+			myPosts: "Mening Xabarlarim",
+			logOut: "Chiqish",
+		},
+		homePage: {
+			title:
+				"Bizning zamonaviy blog ilovasi bilan so'nggi tushuncha va tendentsiyalarni kashf eting sizning hududlaringiz bilan xabardor bo'lish va shug'ullanish uchun uzluksiz va interaktiv platforma					qiziqish.",
+			subTitle: "U yerda siz oxirgi 5 ta xabarni ko'rishingiz mumkin",
+		},
+		posts: {
+			title: "Xabarlar",
+			statusError: "Nimadir noto'g'ri ketdi",
+			subTitle: "Xabarlar topilmadi",
+			symbolPrev: "oldingi",
+			symbolNext: "keyingi",
 		},
 	},
 };

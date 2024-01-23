@@ -5,13 +5,16 @@ import ReactPaginate from "react-paginate";
 import { Loading } from "../../../components/Loading";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
 
 export const Posts = () => {
+	const { t } = useTranslation();
+
 	const [moment, setMoment] = useState({
 		isLoading: true,
 		isError: false,
 	});
-	const [error, setError] = useState("Error");
+	const [error, setError] = useState(t("posts.statusError"));
 
 	const [posts, setPosts] = useState([]);
 	const [pageCount, setPageCount] = useState(0);
@@ -33,7 +36,7 @@ export const Posts = () => {
 					isLoading: false,
 					isError: true,
 				});
-				toast.error("Cannot get data", {
+				toast.error(t("posts.statusError"), {
 					position: "top-center",
 					autoClose: 5000,
 					hideProgressBar: false,
@@ -53,7 +56,7 @@ export const Posts = () => {
 				setPageCount(Math.ceil(res.data.length / 10));
 			})
 			.catch((err) => {
-				toast.error("Cannot get data", {
+				toast.error(t("posts.statusError"), {
 					position: "top-center",
 					autoClose: 5000,
 					hideProgressBar: false,
@@ -77,7 +80,7 @@ export const Posts = () => {
 					});
 				})
 				.catch((err) => {
-					toast.error("Cannot get data", {
+					toast.error(t("posts.statusError"), {
 						position: "top-center",
 						autoClose: 5000,
 						hideProgressBar: false,
@@ -98,7 +101,7 @@ export const Posts = () => {
 
 	return (
 		<div className="px-5 pt-5 d-flex flex-column flex-grow-1">
-			<h1 className="">Posts</h1>
+			<h1 className="">{t("posts.title")}</h1>
 
 			{/* in this moment handling loading moment */}
 			{moment.isLoading && <Loading />}
@@ -106,7 +109,7 @@ export const Posts = () => {
 			{moment.isError && <h2>{error}</h2>}
 			{/* in this moment no error but users there aren't */}
 			{moment.isLoading === false && moment.isError === false && posts.length === 0 ? (
-				<h2>Posts not found</h2>
+				<h2>{t("posts.subTitle")}</h2>
 			) : (
 				//  in this moment rerendering isError moment don't handle then our component is not rendering
 				!moment.isError &&
@@ -126,12 +129,12 @@ export const Posts = () => {
 							})}
 						</ul>
 						<ReactPaginate
-							nextLabel="next >"
+							nextLabel={t("posts.symbolNext") + " >"}
 							onPageChange={handlePageClick}
 							pageRangeDisplayed={3}
 							marginPagesDisplayed={2}
 							pageCount={pageCount}
-							previousLabel="< previous"
+							previousLabel={"< " + t("posts.symbolPrev")}
 							pageClassName="page-item"
 							pageLinkClassName="page-link"
 							previousClassName="page-item"

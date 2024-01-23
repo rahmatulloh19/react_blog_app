@@ -5,19 +5,26 @@ import { FiHome } from "react-icons/fi";
 import { useContext } from "react";
 import { tokenContext } from "../../context/tokenContext";
 import { meContext } from "../../context/meContext";
+import { useTranslation } from "react-i18next";
 
 export const Header = () => {
 	const { me, setMe } = useContext(meContext);
-	console.log(me);
 	const { setToken } = useContext(tokenContext);
 
+	const { t, i18n } = useTranslation();
+
 	const navigate = useNavigate();
+
+	const handleChangeSelect = (evt) => {
+		localStorage.setItem("lang", evt.target.value);
+		i18n.changeLanguage(evt.target.value);
+	};
 
 	return (
 		<header className="w-25 shadow position-fixed h-100 z-3">
 			<div className="wrapper d-flex flex-column h-100 bg-light p-3">
 				<Link className="text-decoration-none fs-2 fw-bolder" to="/">
-					Blog App
+					{t("header.title")}
 				</Link>
 
 				<nav className="navbar flex-grow-1 fw-medium navbar-expand-lg navbar-light p-0">
@@ -34,7 +41,7 @@ export const Header = () => {
 									}
 									href="#">
 									<FiHome />
-									Home
+									{t("header.home")}
 								</NavLink>
 							</li>
 							<li className="nav-item">
@@ -47,8 +54,18 @@ export const Header = () => {
 									}
 									to="/posts">
 									<CiSignpostDuo1 />
-									Posts
+									{t("header.posts")}
 								</NavLink>
+							</li>
+							<li className="nav-item">
+								<select
+									className="form-select"
+									onChange={handleChangeSelect}
+									defaultValue={localStorage.getItem("lang") || "en"}>
+									<option value="en">en</option>
+									<option value="ru">ru</option>
+									<option value="uz">uz</option>
+								</select>
 							</li>
 							<li className="nav-item dropup mt-auto">
 								<div
@@ -76,7 +93,7 @@ export const Header = () => {
 											className="dropdown-item  d-flex align-items-center gap-2"
 											to="/user_settings">
 											<CiSettings />
-											Settings
+											{t("header.settings")}
 										</Link>
 									</li>
 									<li>
@@ -84,7 +101,7 @@ export const Header = () => {
 											className="dropdown-item d-flex align-items-center gap-2"
 											to="/user_posts">
 											<CiSignpostR1 />
-											My Posts
+											{t("header.myPosts")}
 										</Link>
 									</li>
 									<li>
@@ -103,7 +120,7 @@ export const Header = () => {
 											className="dropdown-item text-danger d-flex align-items-center gap-2"
 											href="#">
 											<CiLogout />
-											Log out
+											{t("header.logOut")}
 										</button>
 									</li>
 								</ul>

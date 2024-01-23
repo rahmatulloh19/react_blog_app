@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Item } from "../../../components/Item";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export const Home = () => {
+	const { t } = useTranslation();
+
 	const [lastPosts, setLastPosts] = useState([]);
 
 	useEffect(() => {
@@ -17,13 +20,9 @@ export const Home = () => {
 	return (
 		<div className="px-5 pt-5">
 			<div className="w-75">
-				<h1 className="fs-3 text-dark">
-					Discover the latest insights and trends with our cutting-edge blog app, providing a
-					seamless and interactive platform for staying informed and engaged in your areas of
-					interest.
-				</h1>
+				<h1 className="fs-3 text-dark">{t("homePage.title")}</h1>
 			</div>
-			<h2 className="fs-4 text-end my-5 text-success fw-bolder">There you can see last 5 posts</h2>
+			<h2 className="fs-4 text-end my-5 text-success fw-bolder">{t("homePage.subTitle")}</h2>
 
 			<ul className="list-group">
 				{lastPosts &&
