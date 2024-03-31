@@ -1,291 +1,276 @@
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { PiNewspaper } from "react-icons/pi";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { Modal } from "../../../components/Modal";
 import axios from "axios";
 import { Item } from "../../../components/Item";
 import { Loading } from "../../../components/Loading";
-import { Bounce, ToastContainer } from "react-toastify";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { meContext } from "../../../context/meContext";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const toastSettings = {
-	position: "top-right",
-	autoClose: 5000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-	theme: "light",
-	transition: Bounce,
+  position: "top-right",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+  transition: Bounce,
 };
 
 export const UserPosts = () => {
-	const { me } = useContext(meContext);
+  const { t } = useTranslation();
 
-	const [moment, setMoment] = useState({
-		isLoading: true,
-		isError: false,
-	});
-	const [error, setError] = useState("Error");
+  const { me } = useSelector((state) => state.me);
 
-	const [modal, setModal] = useState(false);
-	const [editPostModal, setEditPostModal] = useState(false);
+  const [moment, setMoment] = useState({
+    isLoading: true,
+    isError: false,
+  });
 
-	const [myPosts, setMyPosts] = useState([]);
-	const [id, setId] = useState(undefined);
+  const [error, setError] = useState(t("myPosts.errorStatus"));
 
-	const [editPost, setEditPost] = useState({
-		post_title: "",
-		post_body: "",
-	});
+  const [modal, setModal] = useState(false);
+  const [editPostModal, setEditPostModal] = useState(false);
 
-	const title = useRef(null);
-	const body = useRef(null);
-	const titleEdit = useRef(null);
-	const bodyEdit = useRef(null);
+  const [myPosts, setMyPosts] = useState([]);
+  const [id, setId] = useState(undefined);
 
-	function getTime() {
-		const date = new Date();
+  const [editPost, setEditPost] = useState({
+    post_title: "",
+    post_body: "",
+  });
 
-		return `${date.toLocaleTimeString().slice(0, 5)} ${date.toLocaleDateString()}`;
-	}
+  const title = useRef(null);
+  const body = useRef(null);
+  const titleEdit = useRef(null);
+  const bodyEdit = useRef(null);
 
-	function handleSubmit(evt) {
-		evt.preventDefault();
-		axios
-			.post("http://localhost:8080/posts", {
-				post_title: title.current.value.trim(),
-				post_body: body.current.value.trim(),
-				user_id: me.id,
-				created_at: getTime(),
-			})
-			.then((res) => {
-				if (res.status === 201) {
-					setEditPostModal(false);
-					toast.success("Successfully Added", toastSettings);
-				}
-			})
-			.catch((err) => {
-				setEditPostModal(false);
-				toast.error(err.message, toastSettings);
-			});
-		setModal(false);
-		document.body.removeAttribute("style");
-	}
+  function getTime() {
+    const date = new Date();
 
-	async function handleEditSubmit(evt) {
-		evt.preventDefault();
+    return `${date.toLocaleTimeString().slice(0, 5)} ${date.toLocaleDateString()}`;
+  }
 
-		const created_at = await axios("http://localhost:8080/posts/" + id).then(({ data }) => {
-			return data.created_at;
-		});
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    axios
+      .post("http://localhost:8080/posts", {
+        post_title: title.current.value.trim(),
+        post_body: body.current.value.trim(),
+        user_id: me.id,
+        created_at: getTime(),
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          setEditPostModal(false);
+          toast.success(t("myPosts.successAdd"), toastSettings);
+        }
+      })
+      .catch(() => {
+        setEditPostModal(false);
+        toast.error(t("myPosts.errorAdd"), toastSettings);
+      });
+    setModal(false);
+    document.body.removeAttribute("style");
+  }
 
-		axios
-			.put("http://localhost:8080/posts/" + id, {
-				post_title: titleEdit.current.value.trim(),
-				post_body: bodyEdit.current.value.trim(),
-				user_id: me.id,
-				created_at: created_at,
-				last_edited_at: getTime(),
-			})
-			.then((res) => {
-				if (res.status === 200) {
-					setEditPostModal(false);
-					toast.success("Successfully Edited", toastSettings);
-				}
-			})
-			.catch((err) => {
-				setEditPostModal(false);
-				toast.error(err.message, toastSettings);
-			});
-		document.body.removeAttribute("style");
-	}
+  async function handleEditSubmit(evt) {
+    evt.preventDefault();
 
-	function deletePost() {
-		id &&
-			axios
-				.delete("http://localhost:8080/posts/" + id, {})
-				.then((res) => {
-					if (res.status === 200) {
-						setEditPostModal(false);
-						toast.success("Successfully Deleted", toastSettings);
-					}
-				})
-				.catch((err) => {
-					setEditPostModal(false);
-					toast.error(err.message, toastSettings);
-				});
-		setEditPostModal(false);
-	}
+    const created_at = await axios("http://localhost:8080/posts/" + id).then(({ data }) => {
+      return data.created_at;
+    });
 
-	useEffect(() => {
-		axios("http://localhost:8080/posts?user_id=" + me.id)
-			.then(({ data }) => {
-				setMyPosts(data);
-				setMoment({
-					isLoading: false,
-					isError: false,
-				});
-			})
-			.catch((err) => {
-				setError(err.message);
-				setMoment({
-					isLoading: false,
-					isError: true,
-				});
-			});
+    axios
+      .put("http://localhost:8080/posts/" + id, {
+        post_title: titleEdit.current.value.trim(),
+        post_body: bodyEdit.current.value.trim(),
+        user_id: me.id,
+        created_at: created_at,
+        last_edited_at: getTime(),
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setEditPostModal(false);
+          toast.success(t("myPosts.successEdit"), toastSettings);
+        }
+      })
+      .catch(() => {
+        setEditPostModal(false);
+        toast.error(t("myPosts.errorEdit"), toastSettings);
+      });
+    document.body.removeAttribute("style");
+  }
 
-		// on opened modal staying prevues value
-		setEditPost({
-			post_title: "",
-			post_body: "",
-		});
+  function deletePost() {
+    id &&
+      axios
+        .delete("http://localhost:8080/posts/" + id, {})
+        .then((res) => {
+          if (res.status === 200) {
+            setEditPostModal(false);
+            toast.success(t("myPosts.successDelete"), toastSettings);
+          }
+        })
+        .catch(() => {
+          setEditPostModal(false);
+          toast.error(t("myPosts.errorDelete"), toastSettings);
+        });
+    setEditPostModal(false);
+  }
 
-		return () => {
-			axios("http://localhost:8080/posts?user_id=" + me.id)
-				.then(({ data }) => {
-					setMyPosts(data);
-					setMoment({
-						isLoading: false,
-						isError: false,
-					});
-				})
-				.catch((err) => {
-					setError(err.message);
-					setMoment({
-						isLoading: false,
-						isError: true,
-					});
-				});
-		};
-	}, [modal, editPostModal]);
+  useEffect(() => {
+    axios("http://localhost:8080/posts?user_id=" + me.id)
+      .then(({ data }) => {
+        setMyPosts(data);
+        setMoment({
+          isLoading: false,
+          isError: false,
+        });
+      })
+      .catch(() => {
+        setError(t("myPosts.errorGetting"));
+        setMoment({
+          isLoading: false,
+          isError: true,
+        });
+      });
 
-	console.log();
+    // on opened modal staying prevues value
+    setEditPost({
+      post_title: "",
+      post_body: "",
+    });
 
-	return (
-		<div className="p-5">
-			<h1 className="fs-2 mb-4">In this page you can add your posts</h1>
-			<button
-				className="btn btn-success d-flex align-items-center gap-2 mb-3"
-				type="button"
-				onClick={() => setModal(true)}>
-				<MdOutlinePostAdd />
-				Add post
-			</button>
+    return () => {
+      axios("http://localhost:8080/posts?user_id=" + me.id)
+        .then(({ data }) => {
+          setMyPosts(data);
+          setMoment({
+            isLoading: false,
+            isError: false,
+          });
+        })
+        .catch(() => {
+          setError(t("myPosts.errorGetting"));
+          setMoment({
+            isLoading: false,
+            isError: true,
+          });
+        });
+    };
+  }, [modal, editPostModal]);
 
-			{moment.isLoading && <Loading />}
-			{moment.isError && <h2>{error}</h2>}
-			{moment.isLoading === false && moment.isError === false && myPosts.length === 0 ? (
-				<h2>Posts not found</h2>
-			) : (
-				!moment.isError && (
-					<div className="my__posts-wrapper mt-5">
-						<ul className="d-grid my_posts-list pt-3">
-							{myPosts.map((item) => {
-								return (
-									<Item
-										key={item.id}
-										id={item.id}
-										title={item.post_title}
-										body={item.post_body}
-										created_at={item.created_at}
-										canEdit={true}
-										setEditPostModal={setEditPostModal}
-										setId={setId}
-										setEditPost={setEditPost}
-										user_id={me?.id}
-									/>
-								);
-							})}
-						</ul>
-					</div>
-				)
-			)}
-			{}
+  return (
+    <div className="p-5">
+      <h1 className="fs-2 mb-4">{t("myPosts.title")}</h1>
+      <button className="btn btn-success d-flex align-items-center gap-2 mb-3" type="button" onClick={() => setModal(true)}>
+        <MdOutlinePostAdd />
+        {t("myPosts.btnAdd")}
+      </button>
 
-			{modal && (
-				<Modal title="Create new post" closeModal={setModal}>
-					<form className="mx-auto mt-3" id="addPost" onSubmit={handleSubmit}>
-						<input
-							className="form-control mb-3"
-							type="text"
-							placeholder="Enter new post name"
-							aria-label="Enter new post name"
-							ref={title}
-							required
-						/>
-						<textarea
-							className="form-control mb-3 textarea"
-							placeholder="Enter new post body"
-							ref={body}
-							required></textarea>
-						<div className="btnWrapper d-flex justify-content-end">
-							<button
-								form="addPost"
-								className="btn btn-outline-success d-flex align-items-center gap-2"
-								type="submit">
-								Create Post <PiNewspaper />
-							</button>
-						</div>
-					</form>
-				</Modal>
-			)}
+      {moment.isLoading && <Loading />}
+      {moment.isError && <h2>{error}</h2>}
+      {moment.isLoading === false && moment.isError === false && myPosts.length === 0 ? (
+        <h2>{t("myPosts.subTitle")}</h2>
+      ) : (
+        !moment.isError && (
+          <div className="my__posts-wrapper mt-5">
+            <ul className="d-grid my_posts-list pt-3">
+              {myPosts.map((item) => {
+                return (
+                  <Item
+                    key={item.id}
+                    id={item.id}
+                    title={item.post_title}
+                    body={item.post_body}
+                    created_at={item.created_at}
+                    canEdit={true}
+                    setEditPostModal={setEditPostModal}
+                    setId={setId}
+                    setEditPost={setEditPost}
+                    user_id={me?.id}
+                  />
+                );
+              })}
+            </ul>
+          </div>
+        )
+      )}
+      {}
 
-			{editPostModal && (
-				<Modal title="Create new post" closeModal={setEditPostModal}>
-					<form className="mx-auto mt-3" onSubmit={handleEditSubmit}>
-						<input
-							className="form-control mb-3"
-							type="text"
-							placeholder="Enter a new name"
-							aria-label="Enter a new name"
-							ref={titleEdit}
-							defaultValue={editPost.post_title && editPost.post_title}
-							required
-						/>
-						<textarea
-							className="form-control mb-3 textarea"
-							placeholder="Enter a new body"
-							aria-label="Enter a new body"
-							ref={bodyEdit}
-							defaultValue={editPost.post_body && editPost.post_body}
-							required></textarea>
-						<div className="btnWrapper d-flex justify-content-end">
-							<button
-								className="btn btn-outline-danger me-2 d-flex align-items-center gap-2"
-								type="button"
-								onClick={(evt) => {
-									deletePost(evt);
-									document.body.removeAttribute("style");
-								}}>
-								Delete this post <MdOutlineDeleteSweep />
-							</button>
-							<button
-								className="btn btn-outline-success d-flex align-items-center gap-2"
-								type="submit">
-								Edit this Post <PiNewspaper />
-							</button>
-						</div>
-					</form>
-				</Modal>
-			)}
-			<ToastContainer
-				position="top-right"
-				autoClose={5000}
-				limit={3}
-				hideProgressBar={false}
-				newestOnTop
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme="light"
-				transition:Bounce
-			/>
-		</div>
-	);
+      {modal && (
+        <Modal title={t("myPosts.modalAddTitle")} closeModal={setModal}>
+          <form className="mx-auto mt-3" id="addPost" onSubmit={handleSubmit}>
+            <input className="form-control mb-3" type="text" placeholder={t("myPosts.modalAddPostName")} aria-label={t("myPosts.modalAddPostName")} ref={title} required />
+            <textarea className="form-control mb-3 textarea" placeholder={t("myPosts.modalAddPostBody")} ref={body} required></textarea>
+            <div className="btnWrapper d-flex justify-content-end">
+              <button form="addPost" className="btn btn-outline-success d-flex align-items-center gap-2" type="submit">
+                {t("myPosts.modalAddBtn")} <PiNewspaper />
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+
+      {editPostModal && (
+        <Modal title={t("myPosts.modalEditTitle")} closeModal={setEditPostModal}>
+          <form className="mx-auto mt-3" onSubmit={handleEditSubmit}>
+            <input
+              className="form-control mb-3"
+              type="text"
+              placeholder={t("myPosts.modalEditPostName")}
+              aria-label={t("myPosts.modalEditPostName")}
+              ref={titleEdit}
+              defaultValue={editPost.post_title && editPost.post_title}
+              required
+            />
+            <textarea
+              className="form-control mb-3 textarea"
+              placeholder={t("myPosts.modalEditPostBody")}
+              aria-label={t("myPosts.modalEditPostBody")}
+              ref={bodyEdit}
+              defaultValue={editPost.post_body && editPost.post_body}
+              required
+            ></textarea>
+            <div className="btnWrapper d-flex justify-content-end">
+              <button
+                className="btn btn-outline-danger me-2 d-flex align-items-center gap-2"
+                type="button"
+                onClick={(evt) => {
+                  deletePost(evt);
+                  document.body.removeAttribute("style");
+                }}
+              >
+                {t("myPosts.modalEditPostDeleteBtn")} <MdOutlineDeleteSweep />
+              </button>
+              <button className="btn btn-outline-success d-flex align-items-center gap-2" type="submit">
+                {t("myPosts.modalEditPostEditBtn")} <PiNewspaper />
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        limit={3}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
+    </div>
+  );
 };

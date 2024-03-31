@@ -8,163 +8,155 @@ import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
 
 export const Posts = () => {
-	const { t } = useTranslation();
+  const { t } = useTranslation();
 
-	const [moment, setMoment] = useState({
-		isLoading: true,
-		isError: false,
-	});
-	const [error, setError] = useState(t("posts.statusError"));
+  const [moment, setMoment] = useState({
+    isLoading: true,
+    isError: false,
+  });
+  const [error, setError] = useState(t("posts.statusError"));
 
-	const [posts, setPosts] = useState([]);
-	const [pageCount, setPageCount] = useState(0);
+  const [posts, setPosts] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
 
-	const handlePageClick = ({ selected }) => {
-		axios(`http://localhost:8080/posts?_page=${selected + 1}`)
-			.then((res) => {
-				const reversedData = res.data.reverse();
-				setPosts(reversedData);
+  const handlePageClick = ({ selected }) => {
+    axios(`http://localhost:8080/posts?_page=${selected + 1}`)
+      .then((res) => {
+        const reversedData = res.data.reverse();
+        setPosts(reversedData);
 
-				setMoment({
-					isLoading: false,
-					isError: false,
-				});
-			})
-			.catch((err) => {
-				setError(err.message);
-				setMoment({
-					isLoading: false,
-					isError: true,
-				});
-				toast.error(t("posts.statusError"), {
-					position: "top-center",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-					transition: Bounce,
-				});
-			});
-	};
+        setMoment({
+          isLoading: false,
+          isError: false,
+        });
+      })
+      .catch((err) => {
+        setError(err.message);
+        setMoment({
+          isLoading: false,
+          isError: true,
+        });
+        toast.error(t("posts.statusError"), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
+  };
 
-	useEffect(() => {
-		axios("http://localhost:8080/posts")
-			.then((res) => {
-				setPageCount(Math.ceil(res.data.length / 10));
-			})
-			.catch((err) => {
-				toast.error(t("posts.statusError"), {
-					position: "top-center",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-					transition: Bounce,
-				});
-			});
+  useEffect(() => {
+    axios("http://localhost:8080/posts")
+      .then((res) => {
+        setPageCount(Math.ceil(res.data.length / 10));
+      })
+      .catch(() => {
+        toast.error(t("posts.statusError"), {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
 
-		!pageCount &&
-			axios("http://localhost:8080/posts?_page=1")
-				.then((res) => {
-					const reversedData = res.data.reverse();
-					setPosts(reversedData);
-					setMoment({
-						isLoading: false,
-						isError: false,
-					});
-				})
-				.catch((err) => {
-					toast.error(t("posts.statusError"), {
-						position: "top-center",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-						transition: Bounce,
-					});
-					setError(err.message);
-					setMoment({
-						isLoading: false,
-						isError: true,
-					});
-				});
-	}, []);
+    !pageCount &&
+      axios("http://localhost:8080/posts?_page=1")
+        .then((res) => {
+          const reversedData = res.data.reverse();
+          setPosts(reversedData);
+          setMoment({
+            isLoading: false,
+            isError: false,
+          });
+        })
+        .catch((err) => {
+          toast.error(t("posts.statusError"), {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+          setError(err.message);
+          setMoment({
+            isLoading: false,
+            isError: true,
+          });
+        });
+  }, []);
 
-	return (
-		<div className="px-5 pt-5 d-flex flex-column flex-grow-1">
-			<h1 className="">{t("posts.title")}</h1>
+  return (
+    <div className="px-5 pt-5 d-flex flex-column flex-grow-1">
+      <h1 className="">{t("posts.title")}</h1>
 
-			{/* in this moment handling loading moment */}
-			{moment.isLoading && <Loading />}
-			{/* in this moment handling error moment */}
-			{moment.isError && <h2>{error}</h2>}
-			{/* in this moment no error but users there aren't */}
-			{moment.isLoading === false && moment.isError === false && posts.length === 0 ? (
-				<h2>{t("posts.subTitle")}</h2>
-			) : (
-				//  in this moment rerendering isError moment don't handle then our component is not rendering
-				!moment.isError &&
-				!moment.isLoading && (
-					<>
-						<ul className="mt-5 d-grid my_posts-list flex-grow-1 align-items-start">
-							{posts.map((item) => {
-								return (
-									<Item
-										title={item.post_title}
-										user_id={item.user_id}
-										body={item.post_body}
-										key={item.id}
-										created_at={item.created_at}
-									/>
-								);
-							})}
-						</ul>
-						<ReactPaginate
-							nextLabel={t("posts.symbolNext") + " >"}
-							onPageChange={handlePageClick}
-							pageRangeDisplayed={3}
-							marginPagesDisplayed={2}
-							pageCount={pageCount}
-							previousLabel={"< " + t("posts.symbolPrev")}
-							pageClassName="page-item"
-							pageLinkClassName="page-link"
-							previousClassName="page-item"
-							previousLinkClassName="page-link"
-							nextClassName="page-item"
-							nextLinkClassName="page-link"
-							breakLabel="..."
-							breakClassName="page-item"
-							breakLinkClassName="page-link"
-							containerClassName="pagination justify-content-center"
-							activeClassName="active"
-							renderOnZeroPageCount={null}
-						/>
-					</>
-				)
-			)}
-			<ToastContainer
-				position="top-right"
-				autoClose={5000}
-				limit={3}
-				hideProgressBar={false}
-				newestOnTop
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme="light"
-				transition:Bounce
-			/>
-		</div>
-	);
+      {/* in this moment handling loading moment */}
+      {moment.isLoading && <Loading />}
+      {/* in this moment handling error moment */}
+      {moment.isError && <h2>{error}</h2>}
+      {/* in this moment no error but users there aren't */}
+      {moment.isLoading === false && moment.isError === false && posts.length === 0 ? (
+        <h2>{t("posts.subTitle")}</h2>
+      ) : (
+        //  in this moment rerendering isError moment don't handle then our component is not rendering
+        !moment.isError &&
+        !moment.isLoading && (
+          <>
+            <ul className="mt-5 d-grid my_posts-list flex-grow-1 align-items-start">
+              {posts.map((item) => {
+                return <Item title={item.post_title} user_id={item.user_id} body={item.post_body} key={item.id} created_at={item.created_at} />;
+              })}
+            </ul>
+            <ReactPaginate
+              nextLabel={t("posts.symbolNext") + " >"}
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={2}
+              pageCount={pageCount}
+              previousLabel={"< " + t("posts.symbolPrev")}
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              previousLinkClassName="page-link"
+              nextClassName="page-item"
+              nextLinkClassName="page-link"
+              breakLabel="..."
+              breakClassName="page-item"
+              breakLinkClassName="page-link"
+              containerClassName="pagination justify-content-center"
+              activeClassName="active"
+              renderOnZeroPageCount={null}
+            />
+          </>
+        )
+      )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        limit={3}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
+    </div>
+  );
 };

@@ -39,6 +39,14 @@
       "last_name": "G'ofurov",
       "img": "",
       "id": 5
+    },
+    {
+      "email": "helloworld@gmail.com",
+      "password": "$2a$10$2MnCZoFgKxKZwYcnyKmjrOo3wbXULDQGNWVANyHLH88kda7g9evDC",
+      "first_name": "Hello",
+      "last_name": "World",
+      "img": "",
+      "id": 6
     }
   ],
   "posts": [
@@ -56,13 +64,6 @@
       "user_id": 1,
       "created_at": "03:16 20.01.2024",
       "id": 3
-    },
-    {
-      "post_title": "How to Troubleshoot Common React Issues",
-      "post_body": "This article provides a comprehensive guide to troubleshooting common react issues, helping you identify and resolve any issues quickly and efficiently. With step-by-step instructions and helpful tips, you'll be able to get your react issues resolved in no time.",
-      "user_id": 1,
-      "created_at": "03:20 20.01.2024",
-      "id": 4
     },
     {
       "post_title": "React: A Comprehensive Guide to React Development",

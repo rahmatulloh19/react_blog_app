@@ -11,6 +11,7 @@
 		"server": "json-server ./data/db.json -m ./node_modules/json-server-auth -p 8080"
 	},
 	"dependencies": {
+		"@reduxjs/toolkit": "^2.2.2",
 		"axios": "^1.6.5",
 		"bootstrap": "^5.3.2",
 		"i18next": "^23.7.18",
@@ -21,6 +22,7 @@
 		"react-i18next": "^14.0.1",
 		"react-icons": "^5.0.1",
 		"react-paginate": "^8.2.0",
+		"react-redux": "^9.1.0",
 		"react-router-dom": "^6.3.0",
 		"react-toastify": "^10.0.3"
 	},

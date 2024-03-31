@@ -1,18 +1,17 @@
 import { PrivateApp, PublicApp } from "./apps/";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-import { tokenContext } from "./context/tokenContext";
-import { useContext } from "react";
 import "./i18n";
+import { useSelector } from "react-redux";
 
 function App() {
-	const { token } = useContext(tokenContext);
+  const { token } = useSelector((state) => state.token);
 
-	if (!token) {
-		return <PublicApp />;
-	}
+  if (!token) {
+    return <PublicApp />;
+  }
 
-	return <PrivateApp />;
+  return <PrivateApp />;
 }
 
 export default App;
